@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" fx:controller="com.example.ejerciciob.ejercicioBController" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox alignment="CENTER_LEFT" prefHeight="420.0" prefWidth="272.0">
             <children>
@@ -46,7 +46,7 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </TextField>
-                <Button mnemonicParsing="false" text="Agregar Persona" VBox.vgrow="ALWAYS">
+                <Button fx:id="agregarButton" mnemonicParsing="false" onAction="#agregar" text="Agregar Persona" VBox.vgrow="ALWAYS">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
