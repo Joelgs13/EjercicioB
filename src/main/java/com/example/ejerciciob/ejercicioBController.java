@@ -4,8 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import model.Persona;
 
+/**
+ * Controlador para la vista del ejercicio B que gestiona una lista de personas.
+ * Permite agregar personas a una tabla después de validar los datos.
+ */
 public class ejercicioBController {
 
     @FXML
@@ -34,17 +39,26 @@ public class ejercicioBController {
 
     private ObservableList<Persona> personasList = FXCollections.observableArrayList();
 
+    /**
+     * Inicializa la vista, lo que hace es vincular las columnas de la tabla con los datos de las personas, haciendo que cada variable sea correspondiente mas tarde a valores que
+     * introduciremos en los textfields
+     */
     @FXML
     public void initialize() {
-        // Vincular las columnas con los campos de la clase Persona
+
         nombreColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getNombre()));
         apellidosColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getApellido()));
         edadColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getEdad()).asObject());
 
-        // Configurar la tabla
         personTable.setItems(personasList);
     }
 
+    /**
+     * Agrega una nueva persona a la lista y la muestra en la tabla solo si los datos son válidos
+     * y la persona no existe ya en ella.
+     * Si los datos son incorrectos o la persona ya existe, muestra un mensaje de error.
+     * Si la persona se agrega correctamente, muestra un mensaje de éxito.
+     */
     @FXML
     private void agregar() {
         String nombre = nombreField.getText().trim();
@@ -52,7 +66,6 @@ public class ejercicioBController {
         String edadText = edadField.getText().trim();
         StringBuilder errores = new StringBuilder();
 
-        // Verificar que los campos no estén vacíos
         if (nombre.isEmpty()) {
             errores.append("El campo 'Nombre' no puede estar vacío.\n");
         }
@@ -60,7 +73,7 @@ public class ejercicioBController {
             errores.append("El campo 'Apellidos' no puede estar vacío.\n");
         }
 
-        // Verificar que la edad sea un número entero válido
+        // edad es un número entero
         int edad = -1;
         try {
             edad = Integer.parseInt(edadText);
@@ -71,28 +84,29 @@ public class ejercicioBController {
             errores.append("El campo 'Edad' debe ser un número entero válido.\n");
         }
 
-        // Mostrar errores si hay alguno
+
         if (errores.length() > 0) {
             mostrarError(errores.toString());
             return;
         }
 
-        // Crear una nueva persona con los datos válidos
+
         Persona nuevaPersona = new Persona(nombre, apellidos, edad);
 
-        // Comprobar si la persona ya existe en la tabla
         if (personasList.contains(nuevaPersona)) {
             mostrarError("Persona duplicada: Ya existe una persona con los mismos datos.");
             return;
         }
 
-        // Si no está duplicada, agregar la persona a la lista y mostrar un mensaje de éxito
         personasList.add(nuevaPersona);
         mostrarInformacion("Persona agregada con éxito.");
-
     }
 
-    // Método para mostrar un mensaje de error
+    /**
+     * Muestra un mensaje de error en una alerta emergente con los datos recogidos por el anterior metodo.
+     *
+     * @param mensaje Mensaje de error a mostrar.
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error en los datos");
@@ -101,7 +115,11 @@ public class ejercicioBController {
         alert.showAndWait();
     }
 
-    // Método para mostrar un mensaje informativo
+    /**
+     * Muestra un mensaje informativo en una alerta emergente.
+     *
+     * @param mensaje Mensaje informativo a mostrar.
+     */
     private void mostrarInformacion(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Éxito");
@@ -110,4 +128,5 @@ public class ejercicioBController {
         alert.showAndWait();
     }
 }
+
 
