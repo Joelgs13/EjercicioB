@@ -1,0 +1,1 @@
+Pantalla de javaFX que muestra tres campos rellenables como el nombre edad y apellidos, y los convierte a objetos personas si estan correctamente realizados y los añade a la tabla de al lado. ademas de eso, comprueba y muestra diferentes mensajes de error basandose en los fallos que se hayan cometido a la hora de crear un registro de persona. 
